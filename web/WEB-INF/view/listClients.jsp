@@ -8,6 +8,8 @@
 <body>
 <H1>Clients</H1>
 
+    <button onclick="window.location.href='showUpdateForm'">Add new client</button>
+
 <table>
     <tr>
         <th>Name</th>
@@ -26,18 +28,13 @@
         </c:url>
 
         <tr>
-            <td><a href="${pageContext.request.contextPath}/listAccounts">${client.name}</a></td>
+            <td><a href="/listAccounts">${client.name}</a></td>
             <td>${client.address}</td>
-            <td><a href="${updateURL}">Edit</a></td>
-            <td><a href="${deleteURL}">Delete</a></td>
+            <td><a href="${updateURL}">Edit</a> <a href="${deleteURL}">Delete</a></td>
         </tr>
     </c:forEach>
 
 </table>
-
-<form:form action="/addOrUpdateClient" name="">
-    <form:input path=""
-</form:form>
 
 </body>
 </html>

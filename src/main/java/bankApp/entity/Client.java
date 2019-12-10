@@ -59,4 +59,14 @@ public class Client {
 //    public void setAccounts(List<Account> accounts) {
 //        this.accounts = accounts;
 //    }
+
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }
