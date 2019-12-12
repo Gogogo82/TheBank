@@ -33,7 +33,7 @@ public class TransactionDaoImpl implements BankDao<Transaction> {
     @Override
     public List<Transaction> getAll() {
         Session session = hsqlSessionFactory.getCurrentSession();
-        Query<Transaction> query = session.createQuery("FROM transaction", Transaction.class);
+        Query<Transaction> query = session.createQuery("FROM Transaction", Transaction.class);
         return null;
     }
 

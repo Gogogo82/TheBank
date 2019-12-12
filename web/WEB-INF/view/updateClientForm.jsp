@@ -5,7 +5,7 @@
     <title>updateClient</title>
 </head>
 <body>
-<H1>Update client</H1>
+<H1>Create or update client</H1>
 <form:form action="saveClient" modelAttribute="client" method="post">
     <form:hidden path="id"/>
     <label>Name:</label>

@@ -10,24 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class ListClientsFormController {
-
-//       @Autowired
-//    BankService<Account> bankServiceAccount;
+public class ClientsController {
 
     @Autowired
-    BankService<Client> bankService;
-
-//    @Autowired
-//    BankService<Transaction> bankServiceTransaction;
+    BankService<Client> bankServiceClient;
 
     @RequestMapping("/listClients")
     public String listClients(Model model) {
-        model.addAttribute("clientsList", bankService.getAll());
+        model.addAttribute("clientsList", bankServiceClient.getAll());
         return "listClients";
     }
 
-    @RequestMapping("/showUpdateForm")
+    @RequestMapping("/showUpdateClientForm")
     public String showUpdateForm(Model model) {
         model.addAttribute("client", new Client());
         return "updateClientForm";
@@ -35,13 +29,13 @@ public class ListClientsFormController {
 
     @RequestMapping("/saveClient")
     public String saveClient(@ModelAttribute("client") Client client){
-        bankService.saveOrUpdate(client);
+        bankServiceClient.saveOrUpdate(client);
         return "redirect:/listClients";
     }
 
     @RequestMapping("/updateClient")
     public String updateClient(@RequestParam("clientId") int id, Model model) {
-        Client clientFromDB = bankService.getOne(id);
+        Client clientFromDB = bankServiceClient.getOne(id);
         System.out.println("id: " + id);
         System.out.println(clientFromDB);
         model.addAttribute("client", clientFromDB);
@@ -50,7 +44,7 @@ public class ListClientsFormController {
 
     @RequestMapping("/deleteClient")
     public String deleteClient(@RequestParam("clientId") int id) {
-        bankService.delete(id);
+        bankServiceClient.delete(id);
         return "redirect:/listClients";
     }
 }

@@ -8,7 +8,7 @@
 <body>
 <H1>Clients</H1>
 
-    <button onclick="window.location.href='showUpdateForm'">Add new client</button>
+    <button onclick="window.location.href='showUpdateClientForm'">Add new client</button>
 
 <table>
     <tr>
@@ -27,8 +27,14 @@
             <c:param name="clientId" value="${client.id}"/>
         </c:url>
 
+        <c:url var="listAccounts" value="/listAccounts">
+            <c:param name="clientId" value="${client.id}"/>
+            <c:param name="clientName" value="${client.name}"/>
+        </c:url>
+
+
         <tr>
-            <td><a href="/listAccounts">${client.name}</a></td>
+            <td><a href="${listAccounts}">${client.name}</a></td>
             <td>${client.address}</td>
             <td><a href="${updateURL}">Edit</a> <a href="${deleteURL}">Delete</a></td>
         </tr>

@@ -3,22 +3,25 @@ package bankApp.entity;
 import javax.persistence.*;
 import java.util.List;
 
-//@Entity
-//@Table(name = "account")
+@Entity
+@Table(name = "account")
 public class Account {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "account_id")
-//    private String id;
-//
-//    @Column(name = "number")
-//    private String number;
-//
-//    // nullable - if client deleted
-//    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-//    @JoinColumn(name = "client_id")
-//    private int ownerId;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "account_id")
+    private String id;
+
+    @Column(name = "number")
+    private String number;
+
+    @Column(name = "amount")
+    private double amount;
+
+    // nullable - if client deleted
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "owner_id")
+    private Client client;
 //
 //    // cascade: not delete transactions if account deleted
 //    @OneToMany(mappedBy = "accountTo",
@@ -31,32 +34,32 @@ public class Account {
 //            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 //    private List<Transaction> transactionsFrom;
 //
-//    public Account() {
-//    }
-//
-//    public String getId() {
-//        return id;
-//    }
-//
-//    public void setId(String id) {
-//        this.id = id;
-//    }
-//
-//    public String getNumber() {
-//        return number;
-//    }
-//
-//    public void setNumber(String number) {
-//        this.number = number;
-//    }
-//
-//    public int getOwnerId() {
-//        return ownerId;
-//    }
-//
-//    public void setOwnerId(int ownerId) {
-//        this.ownerId = ownerId;
-//    }
+    public Account() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 //
 //    public List<Transaction> getTransactionsTo() {
 //        return transactionsTo;
@@ -73,4 +76,12 @@ public class Account {
 //    public void setTransactionsFrom(List<Transaction> transactionsFrom) {
 //        this.transactionsFrom = transactionsFrom;
 //    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
 }

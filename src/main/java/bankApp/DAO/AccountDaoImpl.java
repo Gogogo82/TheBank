@@ -5,19 +5,21 @@ import bankApp.entity.Client;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-//@Repository
+@Repository
 public class AccountDaoImpl implements BankDao<Account> {
 
-//    @Autowired
+    @Autowired
     SessionFactory hsqlSessionFactory;
 
     @Override
     public List<Account> getAll() {
         Session session = hsqlSessionFactory.getCurrentSession();
-        Query<Account> query = session.createQuery("FROM account", Account.class);
+        Query<Account> query = session.createQuery("FROM Account", Account.class);
         return query.getResultList();
     }
 
