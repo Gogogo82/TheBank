@@ -8,12 +8,7 @@
 <body>
 <H1>Accounts of ${client.name}</H1>
 
-<c:url var="addNewAccountURL" value="${pageContext.request.contextPath}/account/addNewAccount">
-    <c:param name="clientId" value="${client.id}"/>
-    <c:param name="clientName" value="${client.name}"/>
-</c:url>
-
-<form:form action="${addNewAccountURL}">
+<form:form action="${pageContext.request.contextPath}/account/addNewAccount">
     <input type="submit" value="Add new account"/>
 </form:form>
 
@@ -27,13 +22,10 @@
 
         <c:url var="updateURL" value="${pageContext.request.contextPath}/account/updateAccount">
             <c:param name="accountId" value="${account.id}"/>
-            <c:param name="clientId" value="${client.id}"/>
-            <c:param name="clientName" value="${client.name}"/>
         </c:url>
 
         <c:url var="deleteURL" value="${pageContext.request.contextPath}/account/deleteAccount">
             <c:param name="accountId" value="${account.id}"/>
-            <c:param name="clientId" value="${client.id}"/>
         </c:url>
 
         <tr>

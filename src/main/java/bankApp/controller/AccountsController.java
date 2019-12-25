@@ -10,12 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
-import java.util.Iterator;
 import java.util.List;
 
 @Controller
 @RequestMapping("/account")
+@SessionAttributes("currentClient")
 public class AccountsController {
 
     private final AccountService accountService;
@@ -30,67 +31,46 @@ public class AccountsController {
     @RequestMapping("/listAccounts")
     public String listAccounts(@RequestParam("clientId") int id, Model model) {
 
-//        System.out.println("@RequestMapping(\"/listAccounts\"");
         Client client = clientService.getOne(id);
-//        System.out.println(client);
+        model.addAttribute("currentClient",  client);
         List<Account> accountList = accountService.getByClientId(id);
-//        accountList.forEach(System.out::println);
         model.addAttribute("accounts", accountList);
         model.addAttribute("client", client);
         return "listAccounts";
     }
 
     @RequestMapping("/addNewAccount")
-    public String showUpdateAccountForm(@RequestParam("clientId") int id,
-                                        @RequestParam("clientName") String name,
-                                        Model model) {
-//        System.out.println();
-//        System.out.println("/addNewAccount");
-//        System.out.println();
-        model.addAttribute("clientId", id);
-        model.addAttribute("clientName", name);
+    public String showUpdateAccountForm(Model model) {
+
+        Client client = (Client)model.getAttribute("currentClient");
+        model.addAttribute("client", client);
         model.addAttribute("account", new Account());
         return "updateAccountForm";
     }
 
     @RequestMapping("/updateAccount")
-    public String updateAccount(@RequestParam("accountId") int accountId,
-                                @RequestParam("clientId") int clientId,
-                                @RequestParam("clientName") String name,
-                                Model model) {
-        model.addAttribute("clientId", clientId);
-        model.addAttribute("clientName", name);
+    public String updateAccount(@RequestParam("accountId") int accountId, Model model) {
+
+        Client client = (Client)model.getAttribute("currentClient");
+        model.addAttribute("client", client);
         model.addAttribute("account", accountService.getOne(accountId));
         return "updateAccountForm";
     }
 
     @RequestMapping("/saveAccount")
-    public String saveAccount(@RequestParam("clientId") int clientId,
-                              @ModelAttribute("account") Account account) {
-//              account.setClient(clientService.getOne(clientId));
-        account.setClient(clientService.getOne(clientId));
+    public String saveAccount(@ModelAttribute("account") Account account, Model model) {
+
+        Client client = (Client)model.getAttribute("currentClient");
+        account.setClient(client);
         accountService.saveOrUpdate(account);
-        return "redirect:/account/listAccounts?clientId=" + clientId;
+        return "redirect:/account/listAccounts?clientId=" + client.getId();
     }
 
     @RequestMapping("/deleteAccount")
-    public String deleteAccount(@RequestParam("accountId") int accountId,
-                                @RequestParam("clientId") int clientId) {
+    public String deleteAccount(@RequestParam("accountId") int accountId, Model model) {
 
-        // breaking bi-directional relationships
-//        List<Account> accountList = clientService.getOne(clientId).getAccounts();
-//        Iterator<Account> iterator = accountList.iterator();
-//
-//        while (iterator.hasNext()) {
-//            if(iterator.next().getId() == accountId) {
-//                iterator.remove();
-//                accountList.forEach(System.out::println);
-//                break;
-//            }
-//        }
-
+        Client client = (Client)model.getAttribute("currentClient");
         accountService.delete(accountId);
-
-        return "redirect:/account/listAccounts?clientId=" + clientId;
+        return "redirect:/account/listAccounts?clientId=" + client.getId();
     }
 }
