@@ -19,6 +19,7 @@ public class Client {
     private String address;
 
     @OneToMany (mappedBy = "client", // "client" - field in Account
+        orphanRemoval=true, // delete account in List<Account> & save this Client object - causes account removal from db (see AccountDaoImpl.delete())
         fetch = FetchType.EAGER,
         cascade = CascadeType.ALL) // delete client - delete accounts
     private List<Account> accounts;

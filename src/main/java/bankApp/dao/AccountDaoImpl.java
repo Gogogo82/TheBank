@@ -1,6 +1,7 @@
 package bankApp.dao;
 
 import bankApp.entity.Account;
+import bankApp.entity.Client;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -20,9 +21,11 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-    public List<Account> findAll() {
+    public List<Account> findByClientId(int clientId) {
         Session session = sessionFactory.getCurrentSession();
-        Query<Account> query = session.createQuery("FROM Account", Account.class);
+        Client client = session.get(Client.class, clientId);
+        Query<Account> query = session.createQuery("FROM Account WHERE client = :clientParam", Account.class);
+        query.setParameter("clientParam", client);
         return query.getResultList();
     }
 
@@ -41,6 +44,8 @@ public class AccountDaoImpl implements AccountDao {
     public void delete(int id) {
         Session session = sessionFactory.getCurrentSession();
         Account account = session.get(Account.class, id);
-        session.delete(account);
+        Client client = account.getClient();
+        client.getAccounts().remove(account);
+        session.save(client);
     }
 }

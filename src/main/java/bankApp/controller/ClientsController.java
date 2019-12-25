@@ -50,10 +50,4 @@ public class ClientsController {
         clientService.delete(id);
         return "redirect:/client/listClients";
     }
-
-    @RequestMapping("redirectToAccountController")
-    public String listAccounts (@RequestParam("clientId") int id, Model model) {
-        model.addAttribute("client", clientService.getOne(id));
-        return "listAccounts";
-    }
 }

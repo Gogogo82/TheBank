@@ -10,7 +10,7 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_id")
-    private String id;
+    private int id;
 
     @Column(name = "number")
     private String number;
@@ -18,7 +18,6 @@ public class Account {
     @Column(name = "amount")
     private double amount;
 
-    // nullable - if client deleted
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "owner_id")
     private Client client;
@@ -37,11 +36,11 @@ public class Account {
     public Account() {
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -85,11 +84,11 @@ public class Account {
         this.amount = amount;
     }
 
-    //TODO: check toString in entities
+
     @Override
     public String toString() {
         return "Account{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", number='" + number + '\'' +
                 ", amount=" + amount +
                 ", client=" + client +

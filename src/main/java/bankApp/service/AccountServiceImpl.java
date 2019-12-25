@@ -20,8 +20,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional
-    public List<Account> getAll() {
-        return accountDao.findAll();
+    public List<Account> getByClientId(int clientId) {
+//        getAll().forEach(System.out::println);
+        return accountDao.findByClientId(clientId);
     }
 
     @Override
@@ -42,10 +43,5 @@ public class AccountServiceImpl implements AccountService {
         accountDao.delete(id);
     }
 
-    @Transactional
-    public List<Account> getByClient(int id) {
-        //TODO: get accounts from list by client or pass this functionality to dao layer
-        getAll().forEach(System.out::println);
-        return getAll();
-    }
+
 }

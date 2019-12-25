@@ -8,7 +8,7 @@
 <body>
 <H1>Clients</H1>
 
-    <button onclick="window.location.href='/client/addNewClient'">Add new client</button>
+    <button onclick="window.location.href='${pageContext.request.contextPath}/client/addNewClient'">Add new client</button>
 
 <table border="1">
     <tr>
@@ -19,21 +19,21 @@
 
     <c:forEach var="client" items="${clientsList}">
 
-        <c:url var="updateURL" value="/client/updateClient">
+        <c:url var="updateURL" value="${pageContext.request.contextPath}/client/updateClient">
             <c:param name="clientId" value="${client.id}"/>
         </c:url>
 
-        <c:url var="deleteURL" value="/client/deleteClient">
+        <c:url var="deleteURL" value="${pageContext.request.contextPath}/client/deleteClient">
             <c:param name="clientId" value="${client.id}"/>
         </c:url>
 
-        <c:url var="redirectToAccountControllerURL" value="/client/redirectToAccountController">
+        <c:url var="listAccountsURL" value="${pageContext.request.contextPath}/account/listAccounts">
             <c:param name="clientId" value="${client.id}"/>
 <%--            <c:param name="clientName" value="${client.name}"/>--%>
         </c:url>
 
         <tr>
-            <td><a href="${redirectToAccountControllerURL}">${client.name}</a></td>
+            <td><a href="${listAccountsURL}">${client.name}</a></td>
             <td>${client.address}</td>
             <td><a href="${updateURL}">Edit</a> <a href="${deleteURL}">Delete</a></td>
         </tr>

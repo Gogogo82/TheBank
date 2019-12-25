@@ -6,19 +6,18 @@
     <title>Accounts</title>
 </head>
 <body>
-<H1>Accounts</H1>
-<H2>of ${clientName}</H2>
+<H1>Accounts of ${client.name}</H1>
 
-<c:url var="showUpdateAccountFormURL" value="/showUpdateAccountForm">
-    <c:param name="clientId" value="${clientId}"/>
-    <c:param name="clientName" value="${clientName}"/>
+<c:url var="addNewAccountURL" value="${pageContext.request.contextPath}/account/addNewAccount">
+    <c:param name="clientId" value="${client.id}"/>
+    <c:param name="clientName" value="${client.name}"/>
 </c:url>
 
-<form:form action="${showUpdateAccountFormURL}">
+<form:form action="${addNewAccountURL}">
     <input type="submit" value="Add new account"/>
 </form:form>
 
-<table>
+<table border="1">
     <tr>
         <th>Number</th>
         <th>Amount</th>
@@ -26,14 +25,15 @@
 
     <c:forEach var="account" items="${accounts}">
 
-        <c:url var="updateURL" value="/updateAccount">
+        <c:url var="updateURL" value="${pageContext.request.contextPath}/account/updateAccount">
             <c:param name="accountId" value="${account.id}"/>
-            <c:param name="clientId" value="${clientId}"/>
-            <c:param name="clientName" value="${clientName}"/>
+            <c:param name="clientId" value="${client.id}"/>
+            <c:param name="clientName" value="${client.name}"/>
         </c:url>
 
-        <c:url var="deleteURL" value="/deleteAccount">
+        <c:url var="deleteURL" value="${pageContext.request.contextPath}/account/deleteAccount">
             <c:param name="accountId" value="${account.id}"/>
+            <c:param name="clientId" value="${client.id}"/>
         </c:url>
 
         <tr>
@@ -44,8 +44,8 @@
     </c:forEach>
 </table>
 
-<form action="listClients">
-    <button>Cancel</button>
+<form action="/${pageContext.request.contextPath}client/listClients">
+    <button>Back to clients list</button>
 </form>
 
 </body>

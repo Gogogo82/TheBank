@@ -6,15 +6,14 @@
     <title>updateAccountForm</title>
 </head>
 <body>
-<H1>Create or update account</H1>
-<H2>of ${clientName}</H2>
+<H1>Create or update account for ${clientName}</H1>
 
-<c:url var="saveAccountURL" value="/saveAccount">
+<c:url var="saveAccountURL" value="${pageContext.request.contextPath}/account/saveAccount">
     <c:param name="clientId" value="${clientId}"/>
-    <c:param name="clientName" value="${clientName}"/>
 </c:url>
 
 <form:form action="${saveAccountURL}" modelAttribute="account" method="post">
+    <form:hidden path="id"/>
     <label>Account number:</label>
     <br>
     <form:input path="number"/>
@@ -27,9 +26,8 @@
 </form:form>
 <br>
 
-<c:url var="listAccountsURL" value="/listAccounts">
+<c:url var="listAccountsURL" value="${pageContext.request.contextPath}/account/listAccounts">
     <c:param name="clientId" value="${clientId}"/>
-    <c:param name="clientName" value="${clientName}"/>
 </c:url>
 
 <form:form action="${listAccountsURL}">
