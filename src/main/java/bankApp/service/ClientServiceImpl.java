@@ -1,6 +1,6 @@
 package bankApp.service;
 
-import bankApp.DAO.BankDao;
+import bankApp.dao.ClientDao;
 import bankApp.entity.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,32 +9,36 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class BankServiceClientImpl implements BankService<Client> {
+public class ClientServiceImpl implements ClientService {
+
+    private final ClientDao clientDao;
 
     @Autowired
-    private BankDao<Client> bankDao;
+    public ClientServiceImpl(ClientDao clientDao) {
+        this.clientDao = clientDao;
+    }
 
     @Override
     @Transactional
     public List<Client> getAll() {
-        return bankDao.getAll();
+        return clientDao.findAll();
     }
 
     @Override
     @Transactional
     public Client getOne(int id) {
-        return bankDao.getOne(id);
+        return clientDao.findById(id);
     }
 
     @Override
     @Transactional
     public void saveOrUpdate(Client client) {
-        bankDao.saveOrUpdate(client);
+        clientDao.save(client);
     }
 
     @Override
     @Transactional
     public void delete(int id) {
-        bankDao.delete(id);
+        clientDao.delete(id);
     }
 }

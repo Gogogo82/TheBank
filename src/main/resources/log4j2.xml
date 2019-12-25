@@ -33,9 +33,11 @@
 
         <!-- Log DB driver unregistering -->
         <Logger name="bankApp.util.JdbcDriverUnregisteringListener" level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
         </Logger>
 
-        <Root level="error">
+        <Root level="info">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="File"/>
         </Root>

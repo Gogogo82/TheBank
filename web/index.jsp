@@ -4,6 +4,6 @@
     <title>Index</title>
   </head>
   <body>
-<% response.sendRedirect("/listClients"); %>
+<% response.sendRedirect("/client/listClients"); %>
   </body>
 </html>

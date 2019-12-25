@@ -6,7 +6,7 @@
 </head>
 <body>
 <H1>Create or update client</H1>
-<form:form action="saveClient" modelAttribute="client" method="post">
+<form:form action="/client/saveClient" modelAttribute="client" method="post">
     <form:hidden path="id"/>
     <label>Name:</label>
     <br>
@@ -19,7 +19,7 @@
     <input type="submit" value="Save"/>
 </form:form>
 <br>
-<form action="listClients">
+<form action="/client/listClients">
     <button>Cancel</button>
 </form>
 </body>

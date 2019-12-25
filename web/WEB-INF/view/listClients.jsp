@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
@@ -8,9 +8,9 @@
 <body>
 <H1>Clients</H1>
 
-    <button onclick="window.location.href='showUpdateClientForm'">Add new client</button>
+    <button onclick="window.location.href='/client/addNewClient'">Add new client</button>
 
-<table>
+<table border="1">
     <tr>
         <th>Name</th>
         <th>Address</th>
@@ -19,22 +19,21 @@
 
     <c:forEach var="client" items="${clientsList}">
 
-        <c:url var="updateURL" value="/updateClient">
+        <c:url var="updateURL" value="/client/updateClient">
             <c:param name="clientId" value="${client.id}"/>
         </c:url>
 
-        <c:url var="deleteURL" value="/deleteClient">
+        <c:url var="deleteURL" value="/client/deleteClient">
             <c:param name="clientId" value="${client.id}"/>
         </c:url>
 
-        <c:url var="listAccounts" value="/listAccounts">
+        <c:url var="redirectToAccountControllerURL" value="/client/redirectToAccountController">
             <c:param name="clientId" value="${client.id}"/>
-            <c:param name="clientName" value="${client.name}"/>
+<%--            <c:param name="clientName" value="${client.name}"/>--%>
         </c:url>
-
 
         <tr>
-            <td><a href="${listAccounts}">${client.name}</a></td>
+            <td><a href="${redirectToAccountControllerURL}">${client.name}</a></td>
             <td>${client.address}</td>
             <td><a href="${updateURL}">Edit</a> <a href="${deleteURL}">Delete</a></td>
         </tr>

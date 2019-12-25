@@ -18,12 +18,10 @@ public class Client {
     @Column(name = "address")
     private String address;
 
-    // ownerId - variable from Account class
-    // cascade: when delete client, accounts must stay
-//    @OneToMany (mappedBy = "ownerId",
-//        fetch = FetchType.EAGER,
-//        cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-//    private List<Account> accounts;
+    @OneToMany (mappedBy = "client", // "client" - field in Account
+        fetch = FetchType.EAGER,
+        cascade = CascadeType.ALL) // delete client - delete accounts
+    private List<Account> accounts;
 
     public Client() {
     }
@@ -52,13 +50,13 @@ public class Client {
         this.address = address;
     }
 
-//    public List<Account> getAccounts() {
-//        return accounts;
-//    }
-//
-//    public void setAccounts(List<Account> accounts) {
-//        this.accounts = accounts;
-//    }
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+    }
 
 
     @Override

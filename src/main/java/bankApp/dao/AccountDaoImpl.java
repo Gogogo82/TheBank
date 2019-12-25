@@ -1,7 +1,6 @@
-package bankApp.DAO;
+package bankApp.dao;
 
 import bankApp.entity.Account;
-import bankApp.entity.Client;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -11,34 +10,37 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class AccountDaoImpl implements BankDao<Account> {
+public class AccountDaoImpl implements AccountDao {
+
+    private final SessionFactory sessionFactory;
 
     @Autowired
-    SessionFactory hsqlSessionFactory;
+    public AccountDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
-    public List<Account> getAll() {
-        Session session = hsqlSessionFactory.getCurrentSession();
+    public List<Account> findAll() {
+        Session session = sessionFactory.getCurrentSession();
         Query<Account> query = session.createQuery("FROM Account", Account.class);
         return query.getResultList();
     }
 
-    public Account getOne(int id) {
-        Session session = hsqlSessionFactory.getCurrentSession();
+    public Account findById(int id) {
+        Session session = sessionFactory.getCurrentSession();
         return session.get(Account.class, id);
     }
 
     @Override
-    public void saveOrUpdate(Account entity) {
-        Session session = hsqlSessionFactory.getCurrentSession();
+    public void save(Account entity) {
+        Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(entity);
     }
 
     @Override
     public void delete(int id) {
-        Session session = hsqlSessionFactory.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         Account account = session.get(Account.class, id);
         session.delete(account);
     }
-
 }

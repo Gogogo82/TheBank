@@ -1,4 +1,4 @@
-package bankApp.DAO;
+package bankApp.dao;
 
 import bankApp.entity.Client;
 import org.hibernate.Session;
@@ -10,33 +10,37 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class ClientDaoImpl implements BankDao<Client> {
+public class ClientDaoImpl implements ClientDao {
+
+    private final SessionFactory sessionFactory;
 
     @Autowired
-    private SessionFactory hsqlSessionFactory;
+    public ClientDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
-    public List<Client> getAll() {
-        Session session = hsqlSessionFactory.getCurrentSession();
+    public List<Client> findAll() {
+        Session session = sessionFactory.getCurrentSession();
         Query<Client> query = session.createQuery("FROM Client", Client.class);
         return query.getResultList();
     }
 
     @Override
-    public Client getOne(int id) {
-        Session session = hsqlSessionFactory.getCurrentSession();
+    public Client findById(int id) {
+        Session session = sessionFactory.getCurrentSession();
         return session.get(Client.class, id);
     }
 
     @Override
-    public void saveOrUpdate(Client client) {
-            Session session = hsqlSessionFactory.getCurrentSession();
+    public void save(Client client) {
+            Session session = sessionFactory.getCurrentSession();
             session.saveOrUpdate(client);
     }
 
     @Override
     public void delete(int id) {
-        Session session = hsqlSessionFactory.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         Client client = session.get(Client.class, id);
         session.delete(client);
     }

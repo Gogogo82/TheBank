@@ -84,4 +84,15 @@ public class Account {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+
+    //TODO: check toString in entities
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id='" + id + '\'' +
+                ", number='" + number + '\'' +
+                ", amount=" + amount +
+                ", client=" + client +
+                '}';
+    }
 }

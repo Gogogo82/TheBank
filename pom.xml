@@ -8,6 +8,7 @@
     <artifactId>TheBank</artifactId>
     <version>1.0-SNAPSHOT</version>
     <build>
+        <finalName>TheBank</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -30,7 +31,7 @@
         </dependency>
 
 
-        <!--Hibernate core 1-->
+        <!--Hibernate 1-->
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -38,7 +39,7 @@
             <version>5.2.1.RELEASE</version>
         </dependency>
 
-        <!--Hibernate core 2-->
+        <!--Hibernate 2-->
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -87,7 +88,6 @@
             <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
-
 
     </dependencies>
     
