@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>updateClient</title>
+    <title>Update client form</title>
 </head>
 <body>
 <H1>Create or update client</H1>

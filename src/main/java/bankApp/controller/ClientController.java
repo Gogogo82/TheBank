@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/client")
-public class ClientsController {
+public class ClientController {
 
     private final ClientService clientService;
 
     @Autowired
-    public ClientsController(ClientService clientService) {
+    public ClientController(ClientService clientService) {
         this.clientService = clientService;
     }
 
@@ -34,14 +34,14 @@ public class ClientsController {
 
     @RequestMapping("/updateClient")
     public String updateClient(@RequestParam("clientId") int id, Model model) {
-        Client clientFromDB = clientService.getOne(id);
+        Client clientFromDB = clientService.findById(id);
         model.addAttribute("client", clientFromDB);
         return "updateClientForm";
     }
 
     @RequestMapping("/saveClient")
     public String saveClient(@ModelAttribute("client") Client client){
-        clientService.saveOrUpdate(client);
+        clientService.save(client);
         return "redirect:/client/listClients";
     }
 

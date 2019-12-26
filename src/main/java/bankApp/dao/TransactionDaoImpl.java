@@ -1,5 +1,6 @@
 package bankApp.dao;
 
+import bankApp.entity.Account;
 import bankApp.entity.Transaction;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -20,10 +21,23 @@ public class TransactionDaoImpl implements TransactionDao {
     }
 
     @Override
-    public List<Transaction> findAll() {
+    public List<Transaction> findByAccount(int accountId) {
         Session session = sessionFactory.getCurrentSession();
-        Query<Transaction> query = session.createQuery("FROM Transaction", Transaction.class);
-        return null;
+        Account account = session.get(Account.class, accountId);
+//
+//        Query<Transaction> query = session.createQuery(
+//                "FROM Transaction WHERE accountFrom = :accountParam OR accountTo = :accountParam",
+//                Transaction.class);
+//
+//        query.setParameter("accountParam", accountId);
+        Query<Transaction> query = session.createQuery(
+                "FROM Transaction WHERE accountFrom = :accountParam OR accountTo = :accountParam",
+                Transaction.class);
+
+        query.setParameter("accountParam", account);
+
+        query.getResultList().forEach(System.out::println);
+        return query.getResultList();
     }
 
     @Override
@@ -41,7 +55,14 @@ public class TransactionDaoImpl implements TransactionDao {
     @Override
     public void delete(int id) {
         Session session = sessionFactory.getCurrentSession();
-        Transaction transaction =session.get(Transaction.class, id);
-        session.delete(transaction);
+        Transaction transaction = session.get(Transaction.class, id);
+
+        Account accountFrom = transaction.getAccountFrom();
+        accountFrom.getTransactionsFrom().remove(transaction);
+
+        Account accountTo = transaction.getAccountTo();
+        accountTo.getTransactionsTo().remove(transaction);
+
+        session.save(transaction);
     }
 }

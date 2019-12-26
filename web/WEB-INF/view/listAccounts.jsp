@@ -28,10 +28,17 @@
             <c:param name="accountId" value="${account.id}"/>
         </c:url>
 
+        <c:url var="transactionURL" value="${pageContext.request.contextPath}/transaction/listTransactions">
+            <c:param name="accountId" value="${account.id}"/>
+        </c:url>
+
         <tr>
             <td>${account.number}</td>
             <td>${account.amount}</td>
-            <td><a href="${updateURL}">Edit</a> <a href="${deleteURL}">Delete</a></td>
+            <td><a href="${updateURL}">Edit</a>
+                <a href="${deleteURL}">Delete</a>
+                <a href="${transactionURL}">Transactions</a>
+            </td>
         </tr>
     </c:forEach>
 </table>

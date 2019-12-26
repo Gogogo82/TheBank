@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>showClients</title>
+    <title>Clients</title>
 </head>
 <body>
 <H1>Clients</H1>
@@ -33,9 +33,13 @@
         </c:url>
 
         <tr>
-            <td><a href="${listAccountsURL}">${client.name}</a></td>
+            <td>${client.name}</td>
             <td>${client.address}</td>
-            <td><a href="${updateURL}">Edit</a> <a href="${deleteURL}">Delete</a></td>
+            <td>
+                <a href="${updateURL}">Edit</a>
+                <a href="${deleteURL}">Delete</a>
+                <a href="${listAccountsURL}">View accounts</a>
+            </td>
         </tr>
     </c:forEach>
 

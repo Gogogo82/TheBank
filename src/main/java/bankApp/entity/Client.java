@@ -59,13 +59,13 @@ public class Client {
         this.accounts = accounts;
     }
 
-
     @Override
     public String toString() {
         return "Client{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
+                ", accounts.size=" + accounts.size() +
                 '}';
     }
 }

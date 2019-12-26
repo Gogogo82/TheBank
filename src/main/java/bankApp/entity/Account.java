@@ -21,18 +21,20 @@ public class Account {
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "owner_id")
     private Client client;
-//
-//    // cascade: not delete transactions if account deleted
-//    @OneToMany(mappedBy = "accountTo",
-//            fetch = FetchType.LAZY,
-//            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-//    private List<Transaction> transactionsTo;
-//
-//    @OneToMany(mappedBy = "accountFrom",
-//            fetch = FetchType.LAZY,
-//            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-//    private List<Transaction> transactionsFrom;
-//
+
+    // cascade: delete transactions if account deleted
+    @OneToMany(mappedBy = "accountTo", // "accountTo" - field in Transaction
+            orphanRemoval = true, // delete account in List<Transaction> & save this Account object - causes account removal from db (see AccountDaoImpl.delete())
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private List<Transaction> transactionsTo;
+
+    @OneToMany(mappedBy = "accountFrom",
+            orphanRemoval = true,
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private List<Transaction> transactionsFrom;
+
     public Account() {
     }
 
@@ -59,22 +61,22 @@ public class Account {
     public void setClient(Client client) {
         this.client = client;
     }
-//
-//    public List<Transaction> getTransactionsTo() {
-//        return transactionsTo;
-//    }
-//
-//    public void setTransactionsTo(List<Transaction> transactionsTo) {
-//        this.transactionsTo = transactionsTo;
-//    }
-//
-//    public List<Transaction> getTransactionsFrom() {
-//        return transactionsFrom;
-//    }
-//
-//    public void setTransactionsFrom(List<Transaction> transactionsFrom) {
-//        this.transactionsFrom = transactionsFrom;
-//    }
+
+    public List<Transaction> getTransactionsTo() {
+        return transactionsTo;
+    }
+
+    public void setTransactionsTo(List<Transaction> transactionsTo) {
+        this.transactionsTo = transactionsTo;
+    }
+
+    public List<Transaction> getTransactionsFrom() {
+        return transactionsFrom;
+    }
+
+    public void setTransactionsFrom(List<Transaction> transactionsFrom) {
+        this.transactionsFrom = transactionsFrom;
+    }
 
     public double getAmount() {
         return amount;
@@ -83,7 +85,6 @@ public class Account {
     public void setAmount(double amount) {
         this.amount = amount;
     }
-
 
     @Override
     public String toString() {

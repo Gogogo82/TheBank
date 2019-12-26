@@ -20,6 +20,14 @@ public class AccountDaoImpl implements AccountDao {
         this.sessionFactory = sessionFactory;
     }
 
+
+    @Override
+    public List<Account> findAll() {
+        Session session = sessionFactory.getCurrentSession();
+        Query<Account> query = session.createQuery("FROM Account", Account.class);
+        return query.getResultList();
+    }
+
     @Override
     public List<Account> findByClientId(int clientId) {
         Session session = sessionFactory.getCurrentSession();
@@ -48,4 +56,5 @@ public class AccountDaoImpl implements AccountDao {
         client.getAccounts().remove(account);
         session.save(client);
     }
+
 }

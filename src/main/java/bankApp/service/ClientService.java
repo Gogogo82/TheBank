@@ -8,9 +8,9 @@ public interface ClientService {
 
     List<Client> getAll();
 
-    Client getOne(int id);
+    Client findById(int id);
 
-    void saveOrUpdate(Client t);
+    void save(Client t);
 
     void delete(int id);
 }

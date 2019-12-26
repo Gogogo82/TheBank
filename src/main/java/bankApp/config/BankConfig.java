@@ -12,6 +12,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -94,15 +95,4 @@ public class BankConfig {
 
         return resolver;
     }
-
-//    @Bean
-////    @Order(Ordered.HIGHEST_PRECEDENCE)
-//    public CharacterEncodingFilter getCharacterEncodingFilter() {
-//
-//        CharacterEncodingFilter filter = new CharacterEncodingFilter();
-//        filter.setEncoding("UTF-8");
-//        filter.setForceEncoding(true);
-//
-//        return filter;
-//    }
 }

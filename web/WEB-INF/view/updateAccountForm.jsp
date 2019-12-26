@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>updateAccountForm</title>
+    <title>Update account form</title>
 </head>
 <body>
 <H1>Create or update account for ${client.name}</H1>

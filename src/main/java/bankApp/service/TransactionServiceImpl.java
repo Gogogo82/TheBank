@@ -1,5 +1,6 @@
 package bankApp.service;
 
+import bankApp.dao.AccountDao;
 import bankApp.dao.TransactionDao;
 import bankApp.entity.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,27 +13,32 @@ import java.util.List;
 public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionDao transactionDAO;
+    private final AccountDao accountDao;
 
     @Autowired
-    public TransactionServiceImpl(TransactionDao transactionDAO) {
+    public TransactionServiceImpl(TransactionDao transactionDAO, AccountDao accountDao) {
         this.transactionDAO = transactionDAO;
+        this.accountDao = accountDao;
     }
 
     @Override
     @Transactional
-    public List<Transaction> getAll() {
-        return transactionDAO.findAll();
+    public List<Transaction> findByAccount(int accountId) {
+        return transactionDAO.findByAccount(accountId);
     }
 
     @Override
     @Transactional
-    public Transaction getOne(int id) {
+    public Transaction findById(int id) {
         return transactionDAO.findById(id);
     }
 
     @Override
     @Transactional
-    public void saveOrUpdate(Transaction transaction) {
+    public void save(Transaction transaction) {
+
+        transaction.setAccountFrom(accountDao.findById(transaction.getAccountFromId()));
+        transaction.setAccountTo(accountDao.findById(transaction.getAccountToId()));
         transactionDAO.save(transaction);
     }
 

@@ -6,11 +6,13 @@ import java.util.List;
 
 public interface TransactionService {
 
-    List<Transaction> getAll();
+    List<Transaction> findByAccount(int accountId);
 
-    Transaction getOne(int id);
+    Transaction findById(int id);
 
-    void saveOrUpdate(Transaction t);
+    void save(Transaction t);
 
     void delete(int id);
+
+
 }

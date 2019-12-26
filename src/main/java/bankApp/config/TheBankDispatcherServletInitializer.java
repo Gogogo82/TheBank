@@ -1,5 +1,6 @@
 package bankApp.config;
 
+import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 import javax.servlet.Filter;
@@ -23,12 +24,14 @@ public class TheBankDispatcherServletInitializer extends AbstractAnnotationConfi
         return new String[] {"/"};
     }
 
-    // ru encoding
     @Override
     protected Filter[] getServletFilters() {
-        CharacterEncodingFilter filter = new CharacterEncodingFilter();
-        filter.setEncoding("UTF-8");
-        filter.setForceEncoding(true);
-        return new Filter[]{filter};
+
+        // ru encoding
+        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+        characterEncodingFilter.setEncoding("UTF-8");
+        characterEncodingFilter.setForceEncoding(true);
+
+        return new Filter[]{characterEncodingFilter};
     }
 }

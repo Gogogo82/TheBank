@@ -17,13 +17,13 @@ import java.util.List;
 @Controller
 @RequestMapping("/account")
 @SessionAttributes("currentClient")
-public class AccountsController {
+public class AccountController {
 
     private final AccountService accountService;
     private final ClientService clientService;
 
     @Autowired
-    public AccountsController(AccountService accountService, ClientService clientService) {
+    public AccountController(AccountService accountService, ClientService clientService) {
         this.accountService = accountService;
         this.clientService = clientService;
     }
@@ -31,9 +31,9 @@ public class AccountsController {
     @RequestMapping("/listAccounts")
     public String listAccounts(@RequestParam("clientId") int id, Model model) {
 
-        Client client = clientService.getOne(id);
+        Client client = clientService.findById(id);
         model.addAttribute("currentClient",  client);
-        List<Account> accountList = accountService.getByClientId(id);
+        List<Account> accountList = accountService.findByClientId(id);
         model.addAttribute("accounts", accountList);
         model.addAttribute("client", client);
         return "listAccounts";
@@ -53,7 +53,8 @@ public class AccountsController {
 
         Client client = (Client)model.getAttribute("currentClient");
         model.addAttribute("client", client);
-        model.addAttribute("account", accountService.getOne(accountId));
+        model.addAttribute("account", accountService.findById(accountId));
+
         return "updateAccountForm";
     }
 
@@ -62,15 +63,17 @@ public class AccountsController {
 
         Client client = (Client)model.getAttribute("currentClient");
         account.setClient(client);
-        accountService.saveOrUpdate(account);
+        accountService.save(account);
+
         return "redirect:/account/listAccounts?clientId=" + client.getId();
     }
 
     @RequestMapping("/deleteAccount")
     public String deleteAccount(@RequestParam("accountId") int accountId, Model model) {
 
-        Client client = (Client)model.getAttribute("currentClient");
         accountService.delete(accountId);
+        Client client = (Client)model.getAttribute("currentClient");
+
         return "redirect:/account/listAccounts?clientId=" + client.getId();
     }
 }

@@ -26,13 +26,13 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     @Transactional
-    public Client getOne(int id) {
+    public Client findById(int id) {
         return clientDao.findById(id);
     }
 
     @Override
     @Transactional
-    public void saveOrUpdate(Client client) {
+    public void save(Client client) {
         clientDao.save(client);
     }
 

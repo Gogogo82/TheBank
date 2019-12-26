@@ -1,17 +1,18 @@
 package bankApp.service;
 
 import bankApp.entity.Account;
-import bankApp.entity.Client;
 
 import java.util.List;
 
 public interface AccountService {
 
-    List<Account> getByClientId(int clientId);
+    List<Account> findAll();
 
-    Account getOne(int id);
+    List<Account> findByClientId(int clientId);
 
-    void saveOrUpdate(Account t);
+    Account findById(int id);
+
+    void save(Account t);
 
     void delete(int id);
 }

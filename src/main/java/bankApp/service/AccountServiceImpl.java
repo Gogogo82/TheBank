@@ -18,22 +18,28 @@ public class AccountServiceImpl implements AccountService {
         this.accountDao = accountDao;
     }
 
+
     @Override
     @Transactional
-    public List<Account> getByClientId(int clientId) {
-//        getAll().forEach(System.out::println);
+    public List<Account> findAll() {
+        return accountDao.findAll();
+    }
+
+    @Override
+    @Transactional
+    public List<Account> findByClientId(int clientId) {
         return accountDao.findByClientId(clientId);
     }
 
     @Override
     @Transactional
-    public Account getOne(int id) {
+    public Account findById(int id) {
         return accountDao.findById(id);
     }
 
     @Override
     @Transactional
-    public void saveOrUpdate(Account account) {
+    public void save(Account account) {
         accountDao.save(account);
     }
 

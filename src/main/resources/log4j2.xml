@@ -13,6 +13,7 @@
         </File>
 
     </Appenders>
+
     <Loggers>
         <!-- Log everything in hibernate -->
         <Logger name="org.hibernate" level="info" additivity="false">
