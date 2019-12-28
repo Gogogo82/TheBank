@@ -26,16 +26,17 @@ public class ClientController {
         return "listClients";
     }
 
-    @RequestMapping("/addNewClient")
-    public String showUpdateForm(Model model) {
-        model.addAttribute("client", new Client());
-        return "updateClientForm";
-    }
+    @RequestMapping("/addOrUpdateClient")
+    public String addOrUpdateClient(@RequestParam("clientId") int clientId, Model model) {
 
-    @RequestMapping("/updateClient")
-    public String updateClient(@RequestParam("clientId") int id, Model model) {
-        Client clientFromDB = clientService.findById(id);
-        model.addAttribute("client", clientFromDB);
+        Client client;
+
+        if(clientId == -1)
+            client = new Client();
+        else
+            client = clientService.findById(clientId);
+
+        model.addAttribute("client", client);
         return "updateClientForm";
     }
 

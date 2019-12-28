@@ -2,6 +2,7 @@ package bankApp.service;
 
 import bankApp.dao.AccountDao;
 import bankApp.dao.TransactionDao;
+import bankApp.entity.Account;
 import bankApp.entity.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,8 +38,17 @@ public class TransactionServiceImpl implements TransactionService {
     @Transactional
     public void save(Transaction transaction) {
 
-        transaction.setAccountFrom(accountDao.findById(transaction.getAccountFromId()));
-        transaction.setAccountTo(accountDao.findById(transaction.getAccountToId()));
+        // change accounts balance
+        Account accountFrom = accountDao.findById(transaction.getAccountFromId());
+        accountFrom.setAmount(accountFrom.getAmount() - transaction.getAmount());
+
+        Account accountTo = accountDao.findById(transaction.getAccountToId());
+        accountTo.setAmount(accountTo.getAmount() + transaction.getAmount());
+
+        // set Account objects to Transaction, according to account ID from <form>
+        transaction.setAccountFrom(accountFrom);
+        transaction.setAccountTo(accountTo);
+
         transactionDAO.save(transaction);
     }
 

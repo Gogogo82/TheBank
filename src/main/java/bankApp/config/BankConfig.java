@@ -16,6 +16,9 @@ import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.resource.PathResourceResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import java.beans.PropertyVetoException;
@@ -28,7 +31,8 @@ import java.util.Properties;
 @PropertySource("classpath:database.properties")
 // to autowire not only interfaces, but classes
 //@EnableTransactionManagement(proxyTargetClass = true)
-public class BankConfig {
+// "implements WebMvcConfigurer" - to add "addResourceHandlers" method
+public class BankConfig implements WebMvcConfigurer {
 
     // data from @PropertySource
     private final Environment environment;
@@ -95,4 +99,22 @@ public class BankConfig {
 
         return resolver;
     }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry
+                .addResourceHandler("/resources/**")
+                .addResourceLocations("/resources/") // resources folder in "web" folder
+                .setCachePeriod(3600) // in seconds
+                .resourceChain(true)
+                .addResolver(new PathResourceResolver());
+    }
+
+
+
+//    If using Spring Security – it's important to allow access to the static resources. We'll need to add the corresponding permissions for accessing the resource URL's:
+//<intercept-url pattern="/files/**" access="permitAll" />
+//<intercept-url pattern="/other-files/**/" access="permitAll" />
+//<intercept-url pattern="/resources/**" access="permitAll" />
+//<intercept-url pattern="/js/**" access="permitAll" />
 }

@@ -4,17 +4,26 @@
 <html>
 <head>
     <title>Create or update transaction form </title>
+    <link type="text/css"
+          rel="stylesheet"
+          href="${pageContext.request.contextPath}/resources/styles.css">
 </head>
 <body>
 <H1>Create or update account for ${transaction.accountFrom}</H1>
 
 <form:form action="${pageContext.request.contextPath}/transaction/saveTransaction" modelAttribute="transaction" method="post">
     <form:hidden path="id"/>
+    <label>Date:</label>
+    <br>
+        <form:input type="date" path="date"/>
+    <br>
+    <br>
     <label>Credit:</label>
     <br>
     <form:select path="accountFromId">
         <form:options items="${accountsMap}"/>
     </form:select>
+    <br>
     <br>
     <label>Debit:</label>
     <br>
@@ -22,11 +31,13 @@
         <form:options items="${accountsMap}"/>
     </form:select>
     <br>
+    <br>
     <label>Amount:</label>
     <br>
     <form:input path="amount"/>
     <br>
-    <input type="submit" value="Save"/>
+    <br>
+    <input class="inputSubmit" type="submit" value="Save"/>
 </form:form>
 <br>
 

@@ -1,6 +1,9 @@
 package bankApp.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "transaction")
@@ -22,6 +25,10 @@ public class Transaction {
     @Column(name = "amount")
     private double amount;
 
+    @Column(name = "date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
+
     // fields to accept data from <form> (used to construct Transaction object in TransactionController)
     @Transient
     private int accountFromId;
@@ -30,6 +37,14 @@ public class Transaction {
     private int accountToId;
 
     public Transaction() {
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public int getAccountFromId() {

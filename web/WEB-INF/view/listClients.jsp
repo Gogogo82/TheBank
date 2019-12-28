@@ -4,22 +4,33 @@
 <html>
 <head>
     <title>Clients</title>
+    <link type="text/css"
+          rel="stylesheet"
+          href="${pageContext.request.contextPath}/resources/styles.css">
 </head>
 <body>
 <H1>Clients</H1>
 
-    <button onclick="window.location.href='${pageContext.request.contextPath}/client/addNewClient'">Add new client</button>
+<c:url var="addURL" value="${pageContext.request.contextPath}/client/addOrUpdateClient">
+    <c:param name="clientId" value="-1"/>
+</c:url>
 
-<table border="1">
+<form:form action="${addURL}">
+    <input class="inputSubmit" type="submit" value="Add new client">
+</form:form>
+
+<table>
     <tr>
-        <th>Name</th>
+        <th>First name</th>
+        <th>Last name</th>
         <th>Address</th>
+        <th>Phone</th>
         <th>Action</th>
     </tr>
 
     <c:forEach var="client" items="${clientsList}">
 
-        <c:url var="updateURL" value="${pageContext.request.contextPath}/client/updateClient">
+        <c:url var="updateURL" value="${pageContext.request.contextPath}/client/addOrUpdateClient">
             <c:param name="clientId" value="${client.id}"/>
         </c:url>
 
@@ -29,15 +40,16 @@
 
         <c:url var="listAccountsURL" value="${pageContext.request.contextPath}/account/listAccounts">
             <c:param name="clientId" value="${client.id}"/>
-<%--            <c:param name="clientName" value="${client.name}"/>--%>
         </c:url>
 
         <tr>
-            <td>${client.name}</td>
+            <td>${client.firstName}</td>
+            <td>${client.lastName}</td>
             <td>${client.address}</td>
+            <td>${client.phone}</td>
             <td>
-                <a href="${updateURL}">Edit</a>
-                <a href="${deleteURL}">Delete</a>
+                <a href="${updateURL}">Edit</a> |
+                <a href="${deleteURL}">Delete</a> |
                 <a href="${listAccountsURL}">View accounts</a>
             </td>
         </tr>

@@ -4,21 +4,26 @@
 <html>
 <head>
     <title>Update account form</title>
+    <link type="text/css"
+          rel="stylesheet"
+          href="${pageContext.request.contextPath}/resources/styles.css">
 </head>
 <body>
-<H1>Create or update account for ${client.name}</H1>
+<H1>Create or update account for ${client.firstName}</H1>
 
 <form:form action="${pageContext.request.contextPath}/account/saveAccount" modelAttribute="account" method="post">
     <form:hidden path="id"/>
     <label>Account number:</label>
     <br>
-    <form:input path="number"/>
+    <form:input type="number" min="0" path="number"/>
+    <br>
     <br>
     <label>Account amount:</label>
     <br>
     ${account.amount}
     <br>
-    <input type="submit" value="Save"/>
+    <br>
+    <input class="inputSubmit" type="submit" value="Save"/>
 </form:form>
 <br>
 

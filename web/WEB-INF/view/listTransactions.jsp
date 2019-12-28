@@ -4,23 +4,28 @@
 <html>
 <head>
     <title>Transactions</title>
+    <link type="text/css"
+          rel="stylesheet"
+          href="${pageContext.request.contextPath}/resources/styles.css">
 </head>
 <body>
 <H1>Transactions on ${currentAccount.number}</H1>
 
 <c:url var="addTransactionURL" value="${pageContext.request.contextPath}/transaction/addOrUpdateTransaction">
-    <c:param name="clientId" value="-1"/>
+    <c:param name="transactionId" value="-1"/>
 </c:url>
 
 <form:form action="${addTransactionURL}">
-    <input type="submit" value="Add new transaction"/>
+    <input class="inputSubmit" type="submit" value="Add new transaction"/>
 </form:form>
 
-<table border="1">
+<table>
     <tr>
+        <th>Date</th>
         <th>Credit</th>
         <th>Debit</th>
         <th>Amount</th>
+        <th>Action</th>
     </tr>
 
     <c:forEach var="transaction" items="${transactionList}">
@@ -34,10 +39,11 @@
         </c:url>
 
         <tr>
+            <td>${transaction.date}</td>
             <td>${transaction.accountFrom.number}</td>
             <td>${transaction.accountTo.number}</td>
             <td>${transaction.amount}</td>
-            <td><a href="${updateURL}">Edit</a>
+            <td><a href="${updateURL}">Edit</a> |
                 <a href="${deleteURL}">Delete</a>
             </td>
         </tr>
@@ -49,7 +55,7 @@
 </c:url>
 
 <form:form action="${listAccountsURL}">
-    <input type="submit" value="Back to accounts list"/>
+    <input class="inputSubmit" type="submit" value="Back to accounts list"/>
 </form:form>
 
 </body>

@@ -12,11 +12,17 @@ public class Client {
     @Column(name = "client_id")
     private int id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "FIRST_NAME")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
 
     @Column(name = "address")
     private String address;
+
+    @Column(name = "phone")
+    private String phone;
 
     @OneToMany (mappedBy = "client", // "client" - field in Account
         orphanRemoval=true, // delete account in List<Account> & save this Client object - causes account removal from db (see AccountDaoImpl.delete())
@@ -27,6 +33,22 @@ public class Client {
     public Client() {
     }
 
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public int getId() {
         return id;
     }
@@ -35,12 +57,12 @@ public class Client {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String name) {
+        this.firstName = name;
     }
 
     public String getAddress() {
@@ -63,7 +85,7 @@ public class Client {
     public String toString() {
         return "Client{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name='" + firstName + '\'' +
                 ", address='" + address + '\'' +
                 ", accounts.size=" + accounts.size() +
                 '}';

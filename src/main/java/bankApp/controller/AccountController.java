@@ -39,21 +39,19 @@ public class AccountController {
         return "listAccounts";
     }
 
-    @RequestMapping("/addNewAccount")
-    public String showUpdateAccountForm(Model model) {
+    @RequestMapping("/addOrUpdateAccount")
+    public String addOrUpdateAccount(@RequestParam("accountId") int accountId, Model model) {
 
         Client client = (Client)model.getAttribute("currentClient");
         model.addAttribute("client", client);
-        model.addAttribute("account", new Account());
-        return "updateAccountForm";
-    }
+        Account account;
 
-    @RequestMapping("/updateAccount")
-    public String updateAccount(@RequestParam("accountId") int accountId, Model model) {
+        if(accountId == -1)
+            account = new Account();
+        else
+            account = accountService.findById(accountId);
 
-        Client client = (Client)model.getAttribute("currentClient");
-        model.addAttribute("client", client);
-        model.addAttribute("account", accountService.findById(accountId));
+        model.addAttribute("account", account);
 
         return "updateAccountForm";
     }

@@ -4,23 +4,31 @@
 <html>
 <head>
     <title>Accounts</title>
+    <link type="text/css"
+          rel="stylesheet"
+          href="${pageContext.request.contextPath}/resources/styles.css">
 </head>
 <body>
-<H1>Accounts of ${client.name}</H1>
+<H1>Accounts of ${client.firstName}</H1>
 
-<form:form action="${pageContext.request.contextPath}/account/addNewAccount">
-    <input type="submit" value="Add new account"/>
+<c:url var="addURL" value="${pageContext.request.contextPath}/account/addOrUpdateAccount">
+    <c:param name="accountId" value="-1"/>
+</c:url>
+
+<form:form action="${addURL}">
+    <input class="inputSubmit" type="submit" value="Add new account"/>
 </form:form>
 
-<table border="1">
+<table>
     <tr>
         <th>Number</th>
         <th>Amount</th>
+        <th>Action</th>
     </tr>
 
     <c:forEach var="account" items="${accounts}">
 
-        <c:url var="updateURL" value="${pageContext.request.contextPath}/account/updateAccount">
+        <c:url var="updateURL" value="${pageContext.request.contextPath}/account/addOrUpdateAccount">
             <c:param name="accountId" value="${account.id}"/>
         </c:url>
 
@@ -35,8 +43,8 @@
         <tr>
             <td>${account.number}</td>
             <td>${account.amount}</td>
-            <td><a href="${updateURL}">Edit</a>
-                <a href="${deleteURL}">Delete</a>
+            <td><a href="${updateURL}">Edit</a> |
+                <a href="${deleteURL}">Delete</a> |
                 <a href="${transactionURL}">Transactions</a>
             </td>
         </tr>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Controller
@@ -45,8 +46,10 @@ public class TransactionController {
 
         Transaction transaction;
 
-        if(transactionId == -1)
+        if(transactionId == -1) {
             transaction = new Transaction();
+            transaction.setDate(LocalDate.now());
+        }
         else transaction = transactionService.findById(transactionId);
 
         Account account = (Account)model.getAttribute("currentAccount");
