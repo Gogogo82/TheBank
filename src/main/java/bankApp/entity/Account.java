@@ -1,6 +1,9 @@
 package bankApp.entity;
 
+import bankApp.validation.ValidateAccount;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -13,6 +16,7 @@ public class Account {
     private int id;
 
     @Column(name = "number")
+    @ValidateAccount
     private String number;
 
     @Column(name = "amount")
@@ -24,7 +28,7 @@ public class Account {
 
     // cascade: delete transactions if account deleted
     @OneToMany(mappedBy = "accountTo", // "accountTo" - field in Transaction
-            orphanRemoval = true, // delete account in List<Transaction> & save this Account object - causes account removal from db (see AccountDaoImpl.delete())
+            orphanRemoval = true, // delete account in List<Transaction> & save this ValidateAccount object - causes account removal from db (see AccountDaoImpl.delete())
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private List<Transaction> transactionsTo;
@@ -88,7 +92,7 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" +
+        return "ValidateAccount{" +
                 "id=" + id +
                 ", number='" + number + '\'' +
                 ", amount=" + amount +

@@ -30,7 +30,6 @@
             <version>5.2.1.RELEASE</version>
         </dependency>
 
-
         <!--Hibernate 1-->
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->
         <dependency>
@@ -46,6 +45,15 @@
             <artifactId>hibernate-core</artifactId>
             <version>5.4.9.Final</version>
         </dependency>
+
+        <!--Hibernate validator-->
+        <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.1.0.Final</version>
+        </dependency>
+
 
         <!--HSQL DB driver, <scope>runtime</scope>-->
         <!-- https://mvnrepository.com/artifact/org.hsqldb/hsqldb -->

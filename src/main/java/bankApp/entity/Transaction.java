@@ -1,8 +1,12 @@
 package bankApp.entity;
 
+import bankApp.validation.ValidateAmount;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
 @Entity
@@ -23,6 +27,9 @@ public class Transaction {
     private Account accountTo;
 
     @Column(name = "amount")
+    @NotNull(message = "is required!")
+//    @Pattern(regexp = "\\d+\\.\\d\\d$", message = "Must be greater than zero, with precision after the decimal point: 2, delimiter: \".\"")
+    @ValidateAmount
     private double amount;
 
     @Column(name = "date")

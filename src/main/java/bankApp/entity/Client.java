@@ -1,6 +1,10 @@
 package bankApp.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Entity
@@ -13,19 +17,24 @@ public class Client {
     private int id;
 
     @Column(name = "FIRST_NAME")
+    @NotNull(message = "is required!")
     private String firstName;
 
     @Column(name = "last_name")
+    @NotNull(message = "is required!")
     private String lastName;
 
     @Column(name = "address")
+    @NotNull(message = "is required!")
     private String address;
 
     @Column(name = "phone")
+    @NotNull(message = "is required!")
+    @Pattern(regexp = "\\+\\d{11}", message = "must match +12345678901")
     private String phone;
 
-    @OneToMany (mappedBy = "client", // "client" - field in Account
-        orphanRemoval=true, // delete account in List<Account> & save this Client object - causes account removal from db (see AccountDaoImpl.delete())
+    @OneToMany (mappedBy = "client", // "client" - field in ValidateAccount
+        orphanRemoval=true, // delete account in List<ValidateAccount> & save this Client object - causes account removal from db (see AccountDaoImpl.delete())
         fetch = FetchType.EAGER,
         cascade = CascadeType.ALL) // delete client - delete accounts
     private List<Account> accounts;

@@ -14,21 +14,25 @@
     <label>First name:</label>
     <br>
     <form:input path="firstName"/>
+    <form:errors path="firstName" cssClass="error"/>
     <br>
     <br>
     <label>Last name:</label>
     <br>
     <form:input path="lastName"/>
+    <form:errors path="lastName" cssClass="error"/>
     <br>
     <br>
     <label>Address:</label>
     <br>
     <form:input path="address"/>
+    <form:errors path="address" cssClass="error"/>
     <br>
     <br>
-    <label>Phone:</label>
+    <label>Phone (format: +71234567890):</label>
     <br>
     <form:input path="phone"/>
+    <form:errors path="phone" cssClass="error"/>
     <br>
     <br>
     <input class="inputSubmit" type="submit" value="Save"/>

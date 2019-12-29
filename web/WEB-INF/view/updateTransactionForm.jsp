@@ -9,7 +9,7 @@
           href="${pageContext.request.contextPath}/resources/styles.css">
 </head>
 <body>
-<H1>Create or update account for ${transaction.accountFrom}</H1>
+<H1>Create or update transaction for ${transaction.accountFrom.number}</H1>
 
 <form:form action="${pageContext.request.contextPath}/transaction/saveTransaction" modelAttribute="transaction" method="post">
     <form:hidden path="id"/>
@@ -23,6 +23,7 @@
     <form:select path="accountFromId">
         <form:options items="${accountsMap}"/>
     </form:select>
+    <form:errors path="accountFrom" cssClass="error"/>
     <br>
     <br>
     <label>Debit:</label>
@@ -32,9 +33,10 @@
     </form:select>
     <br>
     <br>
-    <label>Amount:</label>
+    <label>Amount (format: 0.00):</label>
     <br>
     <form:input path="amount"/>
+    <form:errors path="amount" cssClass="error"/>
     <br>
     <br>
     <input class="inputSubmit" type="submit" value="Save"/>

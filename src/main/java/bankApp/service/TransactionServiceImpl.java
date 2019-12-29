@@ -38,14 +38,23 @@ public class TransactionServiceImpl implements TransactionService {
     @Transactional
     public void save(Transaction transaction) {
 
-        // change accounts balance
         Account accountFrom = accountDao.findById(transaction.getAccountFromId());
-        accountFrom.setAmount(accountFrom.getAmount() - transaction.getAmount());
-
         Account accountTo = accountDao.findById(transaction.getAccountToId());
+
+        if (accountFrom.getNumber().equals(accountTo.getNumber()))
+            throw new RuntimeException("Credit and debit accounts are equal");
+
+        // change accounts balance
+        double newAmount = accountFrom.getAmount() - transaction.getAmount();
+
+        if (newAmount < 0)
+            throw new RuntimeException("Not enough money to withdraw");
+
+        accountFrom.setAmount(newAmount);
+
         accountTo.setAmount(accountTo.getAmount() + transaction.getAmount());
 
-        // set Account objects to Transaction, according to account ID from <form>
+        // set ValidateAccount objects to Transaction, according to account ID from <form>
         transaction.setAccountFrom(accountFrom);
         transaction.setAccountTo(accountTo);
 

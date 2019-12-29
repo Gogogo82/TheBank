@@ -16,6 +16,7 @@
     <label>Account number:</label>
     <br>
     <form:input type="number" min="0" path="number"/>
+    <form:errors path="number" cssClass="error"/>
     <br>
     <br>
     <label>Account amount:</label>

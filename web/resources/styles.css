@@ -45,3 +45,7 @@ button, .inputSubmit {
 }
 button:hover, .inputSubmit:hover { background: linear-gradient(#f5ae00, #f59500) #f5ae00; }
 button:active, .inputSubmit:active { background: linear-gradient(#f59500, #f5ae00) #f59500; }
+
+.error {
+    color: red;
+}
