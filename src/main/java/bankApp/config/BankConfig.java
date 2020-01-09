@@ -44,13 +44,16 @@ public class BankConfig implements WebMvcConfigurer {
 
     @Bean(name = "TheBankDataSource")
     public ComboPooledDataSource getDataSource() {
+
         ComboPooledDataSource result = new ComboPooledDataSource();
+
         try {
             result.setDriverClass(environment.getProperty("driverClass"));
         } catch (PropertyVetoException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+
         result.setJdbcUrl(environment.getProperty("jdbcUrl"));
         result.setUser(environment.getProperty("user"));
         result.setPassword(environment.getProperty("password"));
